@@ -3,6 +3,7 @@ from hashlib import sha3_512
 from typing import Dict
 from fastapi.websockets import WebSocket
 from socketio import AsyncServer
+import settings
 
 class ChatRoom:
     "Represents a single chat room"
@@ -53,6 +54,10 @@ class RoomManager:
         self.user_room_mapper: Dict[str, ChatRoom] = {}
         
     def create_room(self) -> str:
+        # Room limit reached
+        if len(self.rooms) > settings.MAX_ROOMS:
+            return None
+        
         room = ChatRoom()
         print(room.__dict__)
         self.rooms[room.key] = room
