@@ -12,8 +12,12 @@ async def version():
 async def create_room():
     room_id = room_manager.create_room()
     
+    if not room_id:
+        return {"code": 400, "error": "Room limit reached."}
+    
     return {
         "code": 200,
         "message": "success",
         "data": {"room_id": room_id}
     }
+    
