@@ -1,0 +1,17 @@
+# Env
+*/venv/
+.DS_Store
+.env
+
+# Dependencies
+frontend/node_modules/
+frontend/.yarn/
+frontend/.next/
+frontend/.pnp.*
+
+# Cache
+api/__pycache__/
+*.pyc
+
+# Typescript
+frontend/next-env.d.ts
