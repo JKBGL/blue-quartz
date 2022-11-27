@@ -55,7 +55,7 @@ class RoomManager:
         
     def create_room(self) -> str:
         # Room limit reached
-        if len(self.rooms) > settings.MAX_ROOMS:
+        if len(self.rooms) >= settings.MAX_ROOMS:
             return None
         
         room = ChatRoom()

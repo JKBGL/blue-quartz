@@ -20,3 +20,19 @@ async def create_room():
         "message": "success",
         "data": {"room_id": room_id}
     }
+
+@api.get("/counts/rooms", tags=["Counts"], description="Returns the number of currently active rooms.")
+async def count_rooms():
+    return {
+        "code": 200,
+        "message": "success",
+        "data": {"count": len(room_manager.rooms)}
+    }
+    
+@api.get("/counts/users", tags=["Counts"], description="Returns the number of currently active users.")
+async def count_rooms():
+    return {
+        "code": 200,
+        "message": "success",
+        "data": {"count": len(room_manager.active_connections)}
+    }

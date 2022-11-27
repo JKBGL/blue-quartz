@@ -1,0 +1,64 @@
+
+// Website Colors
+$color-w: #fff;
+$color-primary: #317fbe;
+$color-secondary: #202020;
+
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Anek+Devanagari&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body {
+    font-family: 'Anek Devanagari', sans-serif;
+    color: $color-w;
+    background-color: $color-secondary;
+    margin: 0;
+    padding: 0;
+}
+
+.page-container {
+    background-color: $color-primary;
+    padding: 20px;
+    border-radius: 10px;
+    width: 700px;
+    margin: 0 auto;
+    margin-top: 200px;
+    text-align: center;
+}
+
+.page-header {
+    h1, p {
+        margin: 0;
+        padding: 0;
+    }
+    h1 { font-size: 40px; }
+    p { font-size: 20px; }
+}
+
+.grid {
+    display: flex;
+    justify-content: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.room-button {
+    display: flex;
+    background-color: #fff;
+    color: #317fbe;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 20px;
+    margin: 8px;
+    width: 200px;
+    cursor: pointer;
+    justify-content: space-between;
+    align-items: center;
+    transition:
+        .1s color ease-in-out,
+        .1s background-color ease-in-out;
+}
+
+.room-button:hover {
+    background-color: $color-secondary;
+    color: $color-w;
+}
