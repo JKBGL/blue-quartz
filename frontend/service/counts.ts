@@ -8,6 +8,7 @@ const env = {
 class CountService {
     /**
      * Get count of all users currently using the app
+     * @returns `number`
      */
     static async getUserCount(): Promise<number> {
         const {data:response} = await HTTP.get(`${env.API_HOST}/counts/users`);
@@ -16,6 +17,7 @@ class CountService {
 
     /**
      * Get count of all active rooms
+     * @returns `number`
      */
     static async getRoomCount(): Promise<number> {
         const {data:response} = await HTTP.get(`${env.API_HOST}/counts/rooms`);

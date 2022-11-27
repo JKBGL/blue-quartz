@@ -35,7 +35,7 @@ class ChatRoom:
         self.host_id = host_id
         
     def send_message(self, username: str, message: str) -> None:
-        self.message_history.append((username, message))
+        self.message_history.append({"name": username, "message": message})
         
     def generate_room_key(self) -> str:
         return str(sha3_512(os.urandom(64)).hexdigest())
@@ -64,6 +64,9 @@ class RoomManager:
         return room.key
         
     async def connect_user(self, socket_id: str, name: str, room_key: str):
+        if not room_key in self.rooms:
+            return await self.sock.emit('error', "invalid-room", room=socket_id)
+        
         self.active_connections[socket_id] = name
         self.user_room_mapper[socket_id] = room_key
         room = self.rooms[room_key]
@@ -85,6 +88,9 @@ class RoomManager:
                 await self.disconnect_user(socket_id)
 
     async def disconnect_user(self, socket_id: str):
+        if socket_id not in self.active_connections:
+            return await self.sock.emit('error', "not-in-room", room=socket_id)
+        
         room = self.rooms[self.user_room_mapper[socket_id]]
         
         # remove user from cache
@@ -108,16 +114,19 @@ class RoomManager:
     async def send_message(self, socket_id: str, message: str):
         # if user is not in a room, cancel
         if socket_id not in self.active_connections:
-            return self.sock.emit('error', {"error": "not-in-room"}, room=socket_id)
+            return await self.sock.emit('error', "not-identified", room=socket_id)
+        
+        if socket_id not in self.user_room_mapper:
+            return await self.sock.emit('error', "not-in-room", room=socket_id)
         
         room_key = self.user_room_mapper[socket_id]
         room = self.rooms[room_key]
         
-        # add message to room history and get participants
-        participants = room.send_message(self.active_connections[socket_id], message)
+        # add message to room history
+        room.send_message(self.active_connections[socket_id], message)
         # notify participants of the new message
         for participant in room.participants.keys():
-            await self.sock.emit('message', message, room=participant)
+            await self.sock.emit('message', { "message": message, "name": self.active_connections[socket_id]}, room=participant)
             
     async def get_active_rooms(self, socket_id: str):
         await self.sock.emit('debug.rooms', len(self.rooms), room=socket_id)

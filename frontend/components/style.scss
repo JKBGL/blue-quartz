@@ -3,36 +3,46 @@
 $color-w: #fff;
 $color-primary: #317fbe;
 $color-secondary: #202020;
+$color-transparent: #0000008c;
+
+$border-round: 10px;
+$button-round: 5px;
 
 // Fonts
 @import url('https://fonts.googleapis.com/css2?family=Anek+Devanagari&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+body,h1,h2,h3,h4,h5,p {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: 'Anek Devanagari', sans-serif;
     color: $color-w;
     background-color: $color-secondary;
-    margin: 0;
-    padding: 0;
 }
 
 .page-container {
     background-color: $color-primary;
     padding: 20px;
-    border-radius: 10px;
-    width: 700px;
+    border-radius: $border-round;
     margin: 0 auto;
-    margin-top: 200px;
-    text-align: center;
+    
+    &.hero {
+        width: 700px;
+        margin-top: 200px;
+        text-align: center;
+    }
 }
 
 .page-header {
-    h1, p {
-        margin: 0;
-        padding: 0;
-    }
     h1 { font-size: 40px; }
     p { font-size: 20px; }
+}
+
+.centered {
+    text-align: center;
 }
 
 .grid {
@@ -45,7 +55,7 @@ body {
     display: flex;
     background-color: #fff;
     color: #317fbe;
-    border-radius: 5px;
+    border-radius: $button-round;
     padding: 10px 20px;
     font-size: 20px;
     margin: 8px;
@@ -58,7 +68,151 @@ body {
         .1s background-color ease-in-out;
 }
 
+.room-button.join {
+    background-color: #317fbe;
+    color: #fff;
+    justify-content: center;
+    margin: 15px auto;
+}
+
 .room-button:hover {
     background-color: $color-secondary;
     color: $color-w;
 }
+
+.room-popout {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $color-transparent;
+
+    .container {
+        color: $color-secondary;
+        background-color: $color-w;
+        border-radius: $border-round;
+        width: 700px;
+        padding: 20px;
+    }
+
+    .keybox {
+        font-size: 20px;
+        padding: 15px 20px;
+        width: 100%;
+        outline: none;
+        box-sizing: border-box;
+        border-radius: $border-round;
+        border: 1px solid $color-secondary;
+    }
+
+    .error {
+        text-align: center;
+        color: #c92727;
+        font-weight: 400;
+        font-size: 18px;
+    }
+}
+
+/* Loading Spinner */
+.loader {
+    color: #000;
+    font-size: 50px;
+    text-indent: -9999em;
+    overflow: hidden;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    margin: 72px auto;
+    position: relative;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation: load6 1.7s infinite ease, round 1.7s infinite ease;
+    animation: load6 1.7s infinite ease, round 1.7s infinite ease;
+}
+
+@-webkit-keyframes load6 {
+    0% {
+        box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+
+    5%,
+    95% {
+        box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+
+    10%,
+    59% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+    }
+
+    20% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em, -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, -0.749em -0.34em 0 -0.477em;
+    }
+
+    38% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em, -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, -0.82em -0.09em 0 -0.477em;
+    }
+
+    100% {
+        box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+}
+
+@keyframes load6 {
+    0% {
+        box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+
+    5%,
+    95% {
+        box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+
+    10%,
+    59% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+    }
+
+    20% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em, -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, -0.749em -0.34em 0 -0.477em;
+    }
+
+    38% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em, -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, -0.82em -0.09em 0 -0.477em;
+    }
+
+    100% {
+        box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+}
+
+@-webkit-keyframes round {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes round {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+/* Loading Spinner */
