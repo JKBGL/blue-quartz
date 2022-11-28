@@ -1,5 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { Ref, useEffect, useRef, useState } from 'react';
+import closeOnOutside from '../hooks/closeOnOutside';
+import isRoomValid from '../hooks/isRoomValid';
 import RoomService from '../service/room';
 import LoadingSpinner from './loading-spinner';
 
@@ -10,6 +12,10 @@ const RoomIndexPopout = (props: { is_creating: boolean, closeDialog: any }) => {
     const router = useRouter();
     const [room_key, setRoom] = useState('');
     const [room_valid, setValid] = useState(true);
+
+    // Create null ref and give it to the container
+    const containerRef = useRef(null);
+    closeOnOutside(containerRef, closeDialog);
 
     // On init create room if is_creating
     useEffect(() => {
@@ -30,53 +36,13 @@ const RoomIndexPopout = (props: { is_creating: boolean, closeDialog: any }) => {
     // Join room once the key becomes valid
     // when creating
     useEffect(() => {
-        if (is_creating && isRoomValid())
+        if (is_creating && isRoomValid(room_key, is_creating, setValid))
             joinRoom();
     }, [room_key]);
 
-    // Handle clicking outside of the dialog
-    const closeOnOutside = (ref) => {
-        useEffect(() => {
-            const clickedOutside = (e: Event) => {
-                if (ref.current && !ref.current.contains(e.target)) {
-                    closeDialog();
-                }
-            }
-            document.addEventListener("mousedown", clickedOutside);
-
-            // cleanup
-            return () =>
-                document.removeEventListener("mousedown", clickedOutside);
-
-        }, [ref]);
-    }
-    
-    // Maybe move this to RoomService?
-    const isRoomValid = (): boolean => {
-        // All room keys should be at least 32+ characters long
-        if (room_key.length < 32) {
-            setValid(false);
-            return false;
-        }
-
-        // Execute only if not creating a room
-        if (!is_creating) {
-            // Make request to check if room is valid
-            const checkRoom = async () => {
-                const valid = await RoomService.checkRoom(room_key);
-                setValid(valid);
-                return valid;
-            }
-            checkRoom().catch(console.error);
-        }
-
-        setValid(true);
-        return true;
-    }
-
     // Handle room joining
     const joinRoom = () => {
-        if (!isRoomValid())
+        if (!isRoomValid(room_key, is_creating, setValid))
             return;
 
         // Redirect browser to room
@@ -89,11 +55,6 @@ const RoomIndexPopout = (props: { is_creating: boolean, closeDialog: any }) => {
         if (!is_creating)
             setRoom(e.target.value);
     }
-
-    // Create null ref and give it to the container
-    const containerRef = useRef(null);
-    // After updating it will attach the listeners
-    closeOnOutside(containerRef);
 
     return (
         <div className="room-popout">

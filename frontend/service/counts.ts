@@ -1,9 +1,5 @@
 import HTTP from 'axios';
-
-// TODO: find a working .env library
-const env = {
-    API_HOST: 'http://localhost:8000',
-}
+import config from '../config.json';
 
 class CountService {
     /**
@@ -11,7 +7,7 @@ class CountService {
      * @returns `number`
      */
     static async getUserCount(): Promise<number> {
-        const {data:response} = await HTTP.get(`${env.API_HOST}/counts/users`);
+        const {data:response} = await HTTP.get(`${config.API_HOST}/counts/users`);
         return response.data.count;
     }
 
@@ -20,7 +16,7 @@ class CountService {
      * @returns `number`
      */
     static async getRoomCount(): Promise<number> {
-        const {data:response} = await HTTP.get(`${env.API_HOST}/counts/rooms`);
+        const {data:response} = await HTTP.get(`${config.API_HOST}/counts/rooms`);
         return response.data.count;
     }
 }

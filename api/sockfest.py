@@ -43,9 +43,12 @@ async def on_message(socket_id, message):
     }
     ```
     """
+    
+    print("Message received:", message, socket_id, socket_id in room_manager.active_connections)
+    
     # make sure we are passing the required parameters
     if 'message' not in message:
-        await sock.emit('error', 'invalid-format', room=socket_id)
+        return await sock.emit('error', 'invalid-format', room=socket_id)
         
     print(f"User {format_user(socket_id)} sent a message: {message['message']}")
     await room_manager.send_message(socket_id, message['message'])

@@ -1,9 +1,5 @@
 import HTTP from 'axios';
-
-// TODO: find a working .env library
-const env = {
-    API_HOST: 'http://localhost:8000',
-}
+import config from '../config.json';
 
 class RoomService {
     /**
@@ -11,7 +7,7 @@ class RoomService {
      * @returns `string` - room_id
      */
     static async createRoom(): Promise<string> {
-        const {data:response} = await HTTP.post(`${env.API_HOST}/room/create`); //fix typo after finishing
+        const {data:response} = await HTTP.post(`${config.API_HOST}/room/create`); //fix typo after finishing
         return response.data.room_id;
     }
 
@@ -21,7 +17,7 @@ class RoomService {
      * @returns `boolean`
      */
     static async checkRoom(room_id: string): Promise<boolean> {
-        const {data:response} = await HTTP.get(`${env.API_HOST}/room/exists/${room_id}`);
+        const {data:response} = await HTTP.get(`${config.API_HOST}/room/exists/${room_id}`);
         return response.data.exists;
     }
 }
