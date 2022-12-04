@@ -1,3 +1,5 @@
+import { faLink } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
 import React, { Ref, useEffect, useRef, useState } from 'react';
 import closeOnOutside from '../hooks/closeOnOutside';
@@ -67,7 +69,7 @@ const RoomIndexPopout = (props: { is_creating: boolean, closeDialog: any }) => {
                         <h1>Join Room</h1>
                         <p>Please enter the room key below and click Join.</p>
                         <input type={'text'} className={'keybox'} onChange={handleChange} readOnly={is_creating}></input>
-                        <a onClick={() => joinRoom()} className={'room-button join'}>Join</a>
+                        <a onClick={() => joinRoom()} className={'room-button join'}><FontAwesomeIcon icon={faLink} /> Join</a>
                         {room_valid ? null : <p className={'error'}>Invalid room key.</p>}
                     </>
                 }

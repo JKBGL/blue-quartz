@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSquareCheck } from '@fortawesome/free-solid-svg-icons';
 import { useState } from "react";
 
 const NameDialog = (props: {onReturnName: any}) => {
@@ -17,7 +19,7 @@ const NameDialog = (props: {onReturnName: any}) => {
                 <h1>Join Room</h1>
                 <p>Please enter your name and click Continue.</p>
                 <input type={'text'} className={'keybox'} onChange={handleChange} placeholder={'name'}></input>
-                <a onClick={() => confirmName()} className={'room-button join'}>Continue</a>
+                <a onClick={() => confirmName()} className={'room-button join'}><FontAwesomeIcon icon={faSquareCheck} /> Continue</a>
             </div>
         </div>
     );

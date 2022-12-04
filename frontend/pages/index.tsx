@@ -40,7 +40,7 @@ const home_page = () => {
                 </div>
                 <div className={'page-content'}>
                     <div className={'grid'}>
-                        <a onClick={() => setStatus(1)} className={'room-button'}><FontAwesomeIcon icon={faPlus} />Create Room</a>
+                        <a onClick={() => setStatus(1)} className={'room-button'}><FontAwesomeIcon icon={faPlus} /> Create Room</a>
                         <a onClick={() => setStatus(2)} className={'room-button'}><FontAwesomeIcon icon={faRightToBracket} /> Join Room</a>
                     </div>
                     <div>Currently serving <span>{counts.users}</span> users in <span>{counts.rooms}</span> chat rooms!</div>

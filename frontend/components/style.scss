@@ -2,8 +2,11 @@
 // Website Colors
 $color-w: #fff;
 $color-primary: #317fbe;
+$color-primary-light: #54a8d5;
 $color-secondary: #202020;
 $color-transparent: #0000008c;
+$color-darken-t: #10263242;
+$color-error: #ed5b5b;
 
 $border-round: 10px;
 $button-round: 5px;
@@ -12,10 +15,28 @@ $button-round: 5px;
 @import url('https://fonts.googleapis.com/css2?family=Anek+Devanagari&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+// Fix browser padding and margin
 body,h1,h2,h3,h4,h5,p {
     margin: 0;
     padding: 0;
 }
+a { text-decoration: none; }
+
+// Selection
+::selection {
+    background-color: $color-primary;
+    color: $color-w;
+}
+
+// Scrollbar
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+    background: $color-darken-t;
+    border-radius: $button-round;
+}
+::-webkit-scrollbar-thumb:hover { background: #000; }
+
 
 body {
     font-family: 'Anek Devanagari', sans-serif;
@@ -28,11 +49,18 @@ body {
     padding: 20px;
     border-radius: $border-round;
     margin: 0 auto;
+    display: flex;
     
     &.hero {
+        display: block;
         width: 700px;
         margin-top: 200px;
         text-align: center;
+    }
+
+    &.room {
+        width: 1100px;
+        margin: 15px auto;
     }
 }
 
@@ -52,32 +80,41 @@ body {
 }
 
 .room-button {
+    font-family: 'Roboto';
     display: flex;
     background-color: #fff;
     color: #317fbe;
     border-radius: $button-round;
-    padding: 10px 20px;
-    font-size: 20px;
+    padding: 10px 18px;
+    font-size: 14px;
     margin: 8px;
     width: 200px;
+    height: 25px;
     cursor: pointer;
     justify-content: space-between;
     align-items: center;
-    transition:
-        .1s color ease-in-out,
-        .1s background-color ease-in-out;
-}
 
-.room-button.join {
-    background-color: #317fbe;
-    color: #fff;
-    justify-content: center;
-    margin: 15px auto;
-}
+    &.join {
+        background-color: $color-primary;
+        color: $color-w;
+        margin: 15px auto;
+    }
 
-.room-button:hover {
-    background-color: $color-secondary;
-    color: $color-w;
+    &.send {
+        justify-content: center;
+        width: unset;
+    }
+
+    &.leave {
+        margin: 0;
+        margin-bottom: 10px;
+        width: unset;
+    }
+
+    &:hover {
+        background-color: $color-secondary;
+        color: $color-w;
+    }
 }
 
 .room-popout {
@@ -100,20 +137,109 @@ body {
     }
 
     .keybox {
-        font-size: 20px;
-        padding: 15px 20px;
+        font-size: 14px;
+        padding: 12px 15px;
         width: 100%;
         outline: none;
         box-sizing: border-box;
-        border-radius: $border-round;
+        border-radius: $button-round;
         border: 1px solid $color-secondary;
     }
 
     .error {
-        text-align: center;
-        color: #c92727;
-        font-weight: 400;
-        font-size: 18px;
+        font-family: 'Roboto';
+        border-radius: $button-round;
+        background: $color-error;
+        color: $color-w;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        margin: auto;
+        width: 200px;
+        height: 28px;
+    }
+
+    p { font-size: 14px;}
+}
+
+.message-input {
+    height: 50px;
+    align-items: center;
+    width: 100%;
+
+    input {
+        display: block;
+        height: 100%;
+        outline: none;
+        box-sizing: border-box;
+        width: 100%;
+        border-radius: 5px;
+        border: 0;
+        padding: 2px 20px;
+        margin-right: -62px;
+        padding-right: 65px;
+    }
+}
+
+.info-container {
+    width: 330px;
+
+    .user-label {
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+}
+
+.user-item {
+    background-color: #54a8d5;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 16px;
+
+    /* prevent name overflow */
+    span {
+        text-overflow: ellipsis;
+        max-width: 200px;
+        overflow: hidden;
+        max-height: 24px;
+    }
+}
+
+.chat-container {
+    width: 100%;
+    margin-left: 15px;
+}
+
+.message-list {
+    height: 75vh;
+    overflow-y: scroll;
+    margin-bottom: 5px;
+    border-radius: $button-round;
+}
+
+.message-item {
+    margin: 5px 0;
+    background: $color-darken-t;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-right: 5px; /* making room for the scroller */
+
+    .user {
+        color: #8dbddf;
+        height: 22px;
+
+        text-overflow: ellipsis;
+        max-width: 200px;
+        overflow: hidden;
+    }
+
+    .message {
+        word-break: break-word;
     }
 }
 
