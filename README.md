@@ -1,85 +1,39 @@
 # Blue Quartz
-A very small anonymous chat application
+A very small & anonymous chat application
 
 ---
 
+## About
+This project was born out of curiosity to try out Next and SocketIO.
+
+### Tech Stack
+- NextJS
+- ReactJS
+- Python 3.11
+- SocketIO
+- FastAPI
+
+### Features
+
+- Doesn't save anything on disk
+- Very fast and lightweight
+- Uses cutting edge Web 3 technologies
+- Attempts to be as clean and as extensible as possible
+
+### Screenshots
+
+![index-page](./screenshots/index-page.png?raw=true)
+<p align='center'>Main Page Showcase</p>
+
+![chat-room](./screenshots/chat-room.png?raw=true)
+<p align='center'>Chat Room Showcase</p>
+
 ## Installation
+Setup instructions for Blue Quartz can be found here:
+- [Frontend](/frontend/README.md)
+- [Backend](/api/README.md)
 
-### Frontend
+## License
+MIT
 
-1. Requirements
-    - Yarn >= 3.3.0
-    - NodeJS >= 18.6
-    - React >= 18.2.0
-    - NextJS >= 9.1.2
-
-2. Setup
-    2.1. Install Dependencies
-
-    ```bash
-    yarn install
-    ```
-
-    2.2. Run Frontend
-    
-    - Run Compiled
-        ```bash
-        # Compile
-        yarn build
-        
-        # Run
-        yarn start
-        ```
-    
-    - Run Directly
-        ```bash
-        # Using next
-        yarn next start
-
-        # Using yarn's alias
-        yarn run next
-        ```
-    
-    2.3. Disable Next's telemetry (optional)
-    ```bash
-    yarn next telemetry disable
-    ```
-
-### Backend
-
-1. Requirements
-    - Python >= 3.11.0
-
-2. Setup
-    2.1. Install dependencies
-    - Note: Using a virtual environment is prefered.
-
-    ```bash
-    # Using py
-    py -3.11 -m pip install -r requirements.txt
-
-    # Using python prefix
-    python3.11 ./main.py
-    ```
-
-    2.2. Run Backend API
-    
-    ```bash
-    # Using py
-    py -3.11 main.py
-
-    # Using python prefix
-    python3.11 ./main.py
-
-    # Using uvicorn
-    uvicorn main:app
-
-    # Using uvicorn with py
-    py -3.11 -m uvicorn main:app
-    ```
-
-    - For development it is recommended to run the server as follows
-    ```bash
-    python3.11 -m uvicorn main:app --reload --port <port>
-    py -3.11 -m uvicorn main:app --reload --port <port>
-    ```
+<a href="https://jkbgl.net/" align="center"><i>jkbgl.net</i></a>
