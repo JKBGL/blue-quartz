@@ -34,6 +34,5 @@ Setup instructions for Blue Quartz can be found here:
 - [Backend](/api/README.md)
 
 ## License
-MIT
-
-<a href="https://jkbgl.net/" align="center"><i>jkbgl.net</i></a>
+License: [MIT](LICENSE)
+Source: <a href="https://jkbgl.net/"><i>jkbgl.net</i></a>
