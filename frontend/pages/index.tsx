@@ -4,7 +4,7 @@ import { faRightToBracket, faPlus } from '@fortawesome/free-solid-svg-icons';
 import CountService from '../service/counts';
 import RoomIndexPopout from '../components/room-popout';
 
-const home_page = () => {
+const HomePage = () => {
     const [counts, setCounts] = useState({ users: 0, rooms: 0 });
 
     /**
@@ -50,5 +50,5 @@ const home_page = () => {
     );
 }
 
-export default home_page;
+export default HomePage;
 

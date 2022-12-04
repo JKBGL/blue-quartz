@@ -20,7 +20,12 @@ body,h1,h2,h3,h4,h5,p {
     margin: 0;
     padding: 0;
 }
-a { text-decoration: none; }
+a {
+    text-decoration: none;
+
+    &.regular { color: $color-w; }
+    &.regular:hover { color: $color-secondary; }
+}
 
 // Selection
 ::selection {
@@ -109,6 +114,11 @@ body {
         margin: 0;
         margin-bottom: 10px;
         width: unset;
+    }
+
+    &.home {
+        margin: 0 auto;
+        margin-top: 10px;
     }
 
     &:hover {

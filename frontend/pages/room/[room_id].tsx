@@ -1,11 +1,11 @@
-import { faArrowRightFromBracket, faPaperPlane, faUser } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { randomUUID } from "crypto";
-import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRightFromBracket, faPaperPlane, faUser } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/router";
 import { io } from "socket.io-client";
 import NameDialog from "../../components/name-dialog";
 import config from "../../config.json";
+import RoomService from "../../service/room";
 
 // Define the socket outside a component so it doesn't get redefined on every render
 const socket = io(config.API_HOST);
@@ -23,6 +23,41 @@ const RoomContainer = (): JSX.Element => {
 
     const [socket_active, setSocketActive] = useState(false);
     const [identify_dialog, setDialog] = useState(false);
+    const [roomValid, setRoomValid] = useState(false);
+
+    // Check room validity on init
+    RoomService.checkRoom(room_id as string)
+        .then((valid) => {
+            if (valid)
+                return setRoomValid(true);
+
+            handleError("invalid-room");
+        })
+        .catch(console.error);
+
+
+    const handleError = (message: string) => {
+        console.error(message);
+
+        switch (message) {
+            case "invalid-room":
+                setRoomValid(false);
+                router.push("/room-not-found");
+                break;
+            case "not-identified":
+                setDialog(true);
+                break;
+            case "not-in-room":
+                setDialog(true);
+                break;
+            case "connection-closed":
+                // Kicked
+                router.push("/");
+                break;
+
+            default: null;
+        };
+    };
 
     useEffect(() => {
         socket.on('connect', () => setSocketActive(true));
@@ -30,36 +65,34 @@ const RoomContainer = (): JSX.Element => {
 
         // Show name prompt on identity request
         socket.on('user.identify', () => setDialog(true));
-        socket.on('error', (message) => console.error(message));
+        socket.on('error', (message) => handleError(message));
 
         // Disconnect on unmount
         return () => { socket.close() };
     }, []);
 
-    // Tell the server our identity
-    const send_identity = (identity) => socket.emit('user.identity', identity);
-
-    let state = {
-        id: room_id,
-    }
-
     const sendIdentity = (name) => {
         const identity = {name: name, room_id: room_id};
-        send_identity(identity);
+        socket.emit('user.identity', identity);
         setDialog(false);
     }
+    
+    const state = { id: room_id };
 
     return (
         <>
             {
-                identify_dialog
-                ? <NameDialog onReturnName={sendIdentity} />
-                : <Room room={state} />
+                roomValid ? (
+                    identify_dialog
+                    ? <NameDialog onReturnName={sendIdentity} />
+                    : <Room room={state} />
+                ) : null
             }
         </>
     );
-}
-const ChatLog = () => {
+};
+
+const ChatLog = (): JSX.Element => {
     const [messages, setMessages] = useState([]);
     const [afterJoin, setAfterJoin] = useState(false);
     const pageBottom = useRef(null);
@@ -106,7 +139,7 @@ const ChatLog = () => {
     );
 };
 
-const UserLog = () => {
+const UserLog = (): JSX.Element => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
