@@ -35,4 +35,4 @@ Setup instructions for Blue Quartz can be found here:
 
 ## License
 License: [MIT](LICENSE)
-Source: <a href="https://jkbgl.net/"><i>jkbgl.net</i></a>
+Author: <a href="https://jkbgl.net/">Jakatebel</a>
