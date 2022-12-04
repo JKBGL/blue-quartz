@@ -7,7 +7,6 @@ const Document = () => {
         <Html>
             <Head>
                 <link rel="shortcut icon" href="/favicon.png" />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta name="description" content="A very small & anonymous chat application" />
                 <meta name="keywords" content="chat, anonymous, small, blue, quartz, jkbgl, jakatebel, private, no logs, free, lightweight, memory only ..." />
                 <meta name="theme-color" content="#33B9EC" />
