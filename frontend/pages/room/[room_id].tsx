@@ -81,6 +81,7 @@ const RoomContainer = (): JSX.Element => {
 
     return (
         <>
+            <title>Room</title>
             {
                 roomValid ? (
                     identify_dialog
@@ -194,25 +195,22 @@ const Room = (props: {
         
 
     return (
-        <>
-            <title>Room</title>
-            <div className={"page-container room"}>
-                <div className={"info-container"}>
-                    <div className={"room-header"}>
-                        <h1>Room</h1>
-                        <a href="/leave" className={'room-button leave'}><FontAwesomeIcon icon={faArrowRightFromBracket} /> Leave Room</a>
-                    </div>
-                    <UserLog />
+        <div className={"page-container room"}>
+            <div className={"info-container"}>
+                <div className={"room-header"}>
+                    <h1>Room</h1>
+                    <a href="/leave" className={'room-button leave'}><FontAwesomeIcon icon={faArrowRightFromBracket} /> Leave Room</a>
                 </div>
-                <div className={"chat-container"}>
-                    <ChatLog />
-                    <div className={"message-input grid"}>
-                        <input type={'text'} onChange={handleChange} value={message} placeholder={'Message Room'} onKeyDown={keyDown}></input>
-                        <a onClick={() => sendMessage()} className={'room-button send'}><FontAwesomeIcon icon={faPaperPlane} /></a>
-                    </div>
+                <UserLog />
+            </div>
+            <div className={"chat-container"}>
+                <ChatLog />
+                <div className={"message-input grid"}>
+                    <input type={'text'} onChange={handleChange} value={message} placeholder={'Message Room'} onKeyDown={keyDown}></input>
+                    <a onClick={() => sendMessage()} className={'room-button send'}><FontAwesomeIcon icon={faPaperPlane} /></a>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

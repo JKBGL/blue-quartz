@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRightToBracket, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faGem } from '@fortawesome/free-regular-svg-icons';
 import CountService from '../service/counts';
 import RoomIndexPopout from '../components/room-popout';
 
@@ -36,6 +37,7 @@ const HomePage = () => {
                 : null}
             <div className={'page-container hero'}>
                 <div className={'page-header'}>
+                    <h1><FontAwesomeIcon icon={faGem} /></h1>
                     <h1>Blue Quartz</h1>
                     <p>A very small & anonymous chat application</p>
                 </div>
