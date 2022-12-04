@@ -27,6 +27,7 @@ const HomePage = () => {
 
     return (
         <>
+            <title>Blue Quartz</title>
             {status != 0 ?
                 <RoomIndexPopout
                     is_creating={status == 1}

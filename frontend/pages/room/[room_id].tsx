@@ -195,6 +195,7 @@ const Room = (props: {
 
     return (
         <>
+            <title>Room</title>
             <div className={"page-container room"}>
                 <div className={"info-container"}>
                     <div className={"room-header"}>
