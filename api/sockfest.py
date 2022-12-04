@@ -5,6 +5,8 @@ sock = AsyncServer(async_mode='asgi', cors_allowed_origins="*")
 room_manager = RoomManager(sock)
 
 def format_user(socket_id) -> str:
+    if not socket_id in room_manager.active_connections:
+        return "Unknown"
     "Formats a user for logging: `[socket_id] username`"
     return f"[{socket_id}] {room_manager.active_connections[socket_id]}"
 
@@ -41,15 +43,21 @@ async def on_message(socket_id, message):
     }
     ```
     """
+    
+    print("Message received:", message, socket_id, socket_id in room_manager.active_connections)
+    
     # make sure we are passing the required parameters
     if 'message' not in message:
-        await sock.emit('error', 'invalid-format', room=socket_id)
+        return await sock.emit('error', 'invalid-format', room=socket_id)
         
     print(f"User {format_user(socket_id)} sent a message: {message['message']}")
-    await room_manager.send_message(socket_id, message)
+    await room_manager.send_message(socket_id, message['message'])
     
 
 @sock.on('disconnect')
 async def on_disconnect(socket_id):
+    if not socket_id:
+        print("User disconnected and socket_id is None")
+        return
     print(f"User {format_user(socket_id)} has disconnected.")
     await room_manager.disconnect_user(socket_id)
